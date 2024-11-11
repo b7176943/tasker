@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tasker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <script src="main.js"></script> 
+</head>
+
+<body id="iau9">
+  <div id="irz7b" class="gjs-grid-row">
+    <div id="iycz3" class="gjs-grid-column">
+      <h1 id="irjua" class="gjs-heading">Tasker</h1>
+      <div id="i0fr2" style="text-align: center;">All data is saved locally on your device. Select a spreadsheet with your tasks in a .csv format
+        <br><br><a class="g_link" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSSKmRZ_SopnuzWiWYakM1xbPt89O_WSAQ1Ujsbe_lU2V-EVIkiFJ9XsCS6n3HS-WC9eXeeHlaQH-Sw/pub?gid=700328569&single=true&output=csv">Download the public task list</a>, <a class="g_link" href="https://docs.google.com/forms/d/e/1FAIpQLSdf1vzq6pZFhWSzPVdEuMzYORRWFhVLRVMuMVrP5a71A1rHBA/viewform?usp=sf_link">Add a task to the list</a><br>
+        <br><input type="file" id="csvFileInput" accept=".csv" onchange="parseCSV()"/>
+      </div>
+
+        <div class="gjs-grid-row" id="iwndq">
+        <div class="gjs-grid-column" id="ixd47">
+          <div class="gjs-grid-row" id="irs5b">
+            <div class="gjs-grid-column" id="iwo0f"><b id="ikspj">Points: <span id="num_score">0</span></b></div>
+            <div class="gjs-grid-column" id="ihhb7">
+              <div id="ik7h8"><b id="izsxe">Finished: <span id="num_finished">0</span></b></div>
+            </div>
+            <div class="gjs-grid-column" id="ihpey">
+              <div id="iro28"><b id="i1o23">Failed: <span id="num_failed">0</span></b><br id="io5k5" draggable="true"/></div>
+            </div>
+            <div class="gjs-grid-column" id="ivylul">
+              <div id="iljk8v"><b id="iu4yme">Skipped: <span id="num_skipped">0</span></b><br draggable="true"/></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gjs-grid-row" id="i5g1v">
+        <div class="gjs-grid-column" id="izten">
+          <div id="taskText">Upload a spreadsheet with tasks, set your limits on the bottom of the page, apply them, and begin<br>
+            <a class="gjs-button" onclick="nextTask()">START</a></div>
+        </div>
+      </div>
+      <div id="i4i4h"><b id="ijuit">05:00</b></div>
+      <div class="gjs-grid-row" id="i11qb" style="display: none;">
+        <div class="gjs-grid-column" id="ix492">
+            <a class="gjs-button" id="idc0l" onclick="startTaskTimer();">Start timer<br/></a>
+            <a class="gjs-button" id="iar3s" onclick="finishTask();">Finish</a>
+            <a class="gjs-button" id="iuvvk" onclick="failTask();">Fail</a>
+            <a class="gjs-button" id="i4mla" onclick="skipTask();">Skip</a>
+            <a class="gjs-button" id="i9ukh" onclick="blockTask();">Block<br/></a></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="gjs-divider" id="i6fcqf"></div>
+      <section class="gjs-section" id="izr1ca">
+        <div class="gjs-container" id="itv6fy">
+          <h1 class="gjs-heading" id="iany2y">Rewards<br/></h1>
+          <div class="gjs-grid-row" id="i02ab5">
+
+            <!-- Add more rewards here... -->
+
+            <div class="gjs-grid-column" id="i1ukiy">
+              <div id="imaz01">Cum <b>(Price: 10 points)</b></div>
+            </div>
+            <div class="gjs-grid-column" id="i5m4cn"><a class="gjs-button" onclick="buyReward(10)"">Buy reward<br/></a></div>
+
+          </div>
+        </div>
+      </section>
+      
+      <div class="gjs-divider" id="i46fi"></div>
+      <section class="gjs-section" id="idepk">
+        <div class="gjs-container" id="i18qa">
+          <h1 class="gjs-heading" id="iwgwf">Settings<br/></h1>
+          
+          <div class="gjs-grid-column" id="iqk2m">
+            <a class="gjs-button" onclick="if (confirm('Do you want to reset all scores?')) resetScore();">Reset score</a>
+            <a class="gjs-button" onclick="if (confirm('Do you want to unblock all blocked tasks?')) resetBlocked();">Reset blocked tasks</a>
+            <a class="gjs-button" onclick="beep();">Test sound (plays when timer ends)</a>
+            <p><input type="checkbox" id="disable_timer" onchange="updateEnableTimer()"/><label for="disable_timer">Disable timer<br/></label></p>
+            <p><input type="checkbox" id="dont_allow_skipping" onchange="updateAllowSkip()"/><label for="dont_allow_skipping">Don't allow skipping<br/></label></p>
+            <p><i>These settings are saved automatically. Filters have to be saved by pressing the "Apply filters and save" button.</i></p>
+          </div>
+          
+          <h1 class="gjs-heading" id="iwgwf2">Filters<br/></h1>
+
+      <div class="gjs-grid-row" id="ijn5oh">
+        <div class="gjs-grid-column" id="i2ylgd">
+            <b id="iwyu7">Tags</b>
+            <div id="tags_list">
+                <input type="checkbox" name="nolimits" id="nolimits" onclick="var all_tags = document.querySelectorAll('.tags_checkboxes'); for (var checkbox in all_tags) all_tags[checkbox].checked = true;"><label for="nolimits">No limits<br></label>
+            </div>
+        </div>
+        <div class="gjs-grid-column" id="iltn4f">
+            <b id="i92vqm">Body parts</b>
+            <div id="bodyparts_list"></div>
+        </div>
+        <div class="gjs-grid-column">
+            <b id="i3bsps">Toys</b>
+            <div id="toys_list"></div>
+        </div>
+      </div>
+
+      <a class="gjs-button" onclick="saveCheckboxState('tags_checkboxes'); saveCheckboxState('bodyparts_checkboxes'); saveCheckboxState('toys_checkboxes'); getCurrentTasks(); ">Apply filters and save<br/></a>
+      <a class="gjs-button" id="resetButton" onclick="resetFilters();">Reset</a>
+      
+      <div class="gjs-grid-row" id="ijdpi">
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
