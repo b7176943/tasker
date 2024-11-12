@@ -245,6 +245,7 @@ function resetScore() {
 }
 
 function blockTask() {
+    console.log("Blocked " + currentTask.ID);
     blockedTasksIds.push(currentTask.ID);
     localStorage.setItem("blockedTasksIds", JSON.stringify(blockedTasksIds));
     getCurrentTasks();
@@ -286,6 +287,7 @@ function nextTask() {
 
         timer_text.innerHTML = task.Minutes.toString().padStart(2, 0) + ":00";
         taskText.innerHTML = task.TaskText;
+        if (task.Username != "") taskText.innerHTML += "<br><i>Submitted by user: " + task.Username + "</i>";
         currentTask = task;
         if (enableTimer && task.Minutes != "" && task.Minutes > 0) {
             timer_text_div.style.display = "initial";
@@ -314,6 +316,11 @@ function getCurrentTasks() {
 
     currentTasksIndex = 0;
     currentTasks = taskData.filter(function (el) {
+        /*console.log("Checking for " + el.ID)
+        console.log(el.BodyParts.every(item => bodyparts_array.includes(item)));
+        console.log(el.Toys.every(item => toys_array.includes(item)));
+        console.log(el.Tags.every(item => tags_array.includes(item)));
+        console.log(!blockedTasksIds.includes(el.ID));*/
         return !blockedTasksIds.includes(el.ID) && el.Tags.every(item => tags_array.includes(item)) && el.BodyParts.every(item => bodyparts_array.includes(item)) && el.Toys.every(item => toys_array.includes(item));
     });
     shuffle(currentTasks);
