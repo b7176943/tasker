@@ -133,6 +133,15 @@ function parseCSV(showAlert = true) {
     }  
 }
 
+function httpGet()
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "https://docs.google.com/spreadsheets/d/e/2PACX-1vSSKmRZ_SopnuzWiWYakM1xbPt89O_WSAQ1Ujsbe_lU2V-EVIkiFJ9XsCS6n3HS-WC9eXeeHlaQH-Sw/pub?gid=700328569&single=true&output=csv", false );
+    xmlHttp.send(null);
+    console.log(xmlHttp.responseText)
+    return xmlHttp.responseText;
+}
+
 function csvToObj(csv) {
     const lines = csv.split('\n');
     const headers = parseLine(lines[0]);
