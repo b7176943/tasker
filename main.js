@@ -2,6 +2,7 @@
 
 const Tags = [
     { id: 'edging', title: 'Edging/Denial' },
+    { id: 'penetration', title: 'Penetration' },
     { id: 'cum', title: 'Orgasm' },
     { id: 'pain_light', title: 'Pain (light)' },
     { id: 'pain_extreme', title: 'Pain (extreme)' },
